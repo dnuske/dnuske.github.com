@@ -52,10 +52,14 @@ function init(){
 	//fill the site with data!
 
 	//grab all posts from the pageData
+	var examplePost = content.posts.firstChild.cloneNode(true);
+	content.posts.removeChild(content.posts.firstChild)
 	for (var i = pageData.posts.length - 1; i >= 0; i--) {
-		var newPost = content.posts.firstChild.cloneNode(true);
+		var newPost = examplePost.cloneNode(true);
 		newPost.childNodes.item(0).innerText = pageData.posts[i].subject;
 		newPost.childNodes.item(1).innerText = pageData.posts[i].content;
+		content.posts.appendChild(newPost);
 	};
 }
+init();
 
