@@ -21,44 +21,53 @@ header.appendChild(header.headerTitle);
 content.posts = document.createElement('DIV');
 content.appendChild(content.posts);
 
-//create the example post
-var post1 = document.createElement('DIV');
-post1.wTitle = document.createElement('DIV');
-post1.appendChild(post1.wTitle);
-post1.wContent = document.createElement('DIV');
-post1.appendChild(post1.wContent);
+//create the example post constructor
+function WisePost() {
 
-post1.wTitle.innerText = 'wTitle example text';
-post1.wContent.innerText = 'wContent example text';
+	this.dom = document.createElement('DIV');
 
+	this.dom.wTitle = document.createElement('DIV');
+	this.dom.appendChild(this.dom.wTitle);
+	this.dom.wContent = document.createElement('DIV');
+	this.dom.appendChild(this.dom.wContent);
 
+	content.posts.appendChild(this.dom);
 
+	this.setTitle = function(text){
+		this.dom.wTitle.innerText = text;
+	}
 
-content.posts.appendChild(post1);
+	this.setContent = function(text){
+		this.dom.wContent.innerText = text;
+	}
 
+}
 
 
 
 //footer setup
+
+
+
+//get the data
 var pageData = {
 	posts: [
 		{subject: "post 1 title",
-		content:"post 1 content"}
+		content:"post 1 content"},
+		{subject: "post 2 title",
+		content:"post 2 content"}
 	]
 }
 
 
+//fill the site with data!
 function init(){
-	//fill the site with data!
 
 	//grab all posts from the pageData
-	var examplePost = content.posts.firstChild.cloneNode(true);
-	content.posts.removeChild(content.posts.firstChild)
 	for (var i = pageData.posts.length - 1; i >= 0; i--) {
-		var newPost = examplePost.cloneNode(true);
-		newPost.childNodes.item(0).innerText = pageData.posts[i].subject;
-		newPost.childNodes.item(1).innerText = pageData.posts[i].content;
-		content.posts.appendChild(newPost);
+		var newPost = new WisePost();
+		newPost.setTitle(pageData.posts[i].subject);
+		newPost.setContent(pageData.posts[i].content);
 	};
 }
 init();
